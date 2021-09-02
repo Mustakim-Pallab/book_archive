@@ -38,12 +38,44 @@ const displayBooks=(book)=>{
       else{
         title= data.title;
       }
+
+      let authors;
+     let counter=0;
+      if(data.author_name)
+      {
+        authors=data.author_name[0]; 
+
+        data.author_name.forEach(author=>{
+            counter++;
+            if(data.author_name.length>1 && counter==1)
+            {
+                authors+=', ';
+            }
+            else if(data.author_name.length==1 && counter==1)
+            {
+                
+            }
+            else if(counter==data.author_name.length)
+            {
+                authors+=author;
+            }
+           else{
+                authors+=author+', ';
+            }
+        })
+      }
+      else {
+          authors='Unknown Author';
+      }
+      
+    
       div.innerHTML=`
           <div class="card h-100">
             <img src="https://covers.openlibrary.org/b/id/${data.cover_i}-M.jpg" class="card-img-top h-100" alt="...">
             <div class="card-body">
               <h3 class="card-title">${title}</h3>
               
+              <h5 class="card-title">By ${authors}</h5>
 
               <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
             </div>
