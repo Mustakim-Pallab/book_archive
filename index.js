@@ -5,8 +5,7 @@ const getElement=document.getElementById('button-addon2').addEventListener("clic
     console.log(searchText);
     search(searchText);
     document.getElementById('searchbox').value="";
-    const div=document.createElement('div');
-      div.classList.add('col');
+    
 });
 
 const search=searchText =>{
@@ -14,6 +13,7 @@ const search=searchText =>{
   .then(response => response.json())
   .then(data => displayBooks(data) );
   
+
 
 }
 
@@ -26,10 +26,14 @@ const displayBooks=(book)=>{
 
         numberOfResults.innerHTML=
     `<h5>Number Of books Found: ${book.numFound} ` ;
+
+    
+
     }
     else{
         numberOfResults.innerHTML=
-    `<h5> Your Search item is not found in our library ` ;
+    `<h5> Your Search item is not found in our library . Here, the previous sucessful reslts in shown` ;
+    
     }
     
     
