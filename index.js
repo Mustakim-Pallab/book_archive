@@ -1,39 +1,50 @@
-
 let searchText;
+const numberOfResults=document.getElementById('number');
+const searchResult= document.getElementById('searchResults');
+
 const getElement=document.getElementById('button-addon2').addEventListener("click",function(){
     searchText = document.getElementById('searchbox').value;
     console.log(searchText);
     search(searchText);
     document.getElementById('searchbox').value="";
-    
+    const div=document.createElement('div');
+      div.classList.add('col');
 });
 
 const search=searchText =>{
+    searchResult.innerHTML='';
+    numberOfResults.innerHTML=`<h5> Please Wait........ </h5>
+    <p>Your Desired Book(s) are on search</p>`;
+
     fetch(`https://openlibrary.org/search.json?q=${searchText}`)
   .then(response => response.json())
-  .then(data => displayBooks(data) );
+  .then(data => displayBooks(data) ).catch(displayNone());
   
 
+}
 
+const displayNone=() =>{
+    numberOfResults.innerHTML=
+    `<h5> Please Wait........ </h5>
+    <p>Your Desired Book(s) are on search</p>` ;
 }
 
 
 
 const displayBooks=(book)=>{
-    const searchResult= document.getElementById('searchResults');
-    const numberOfResults=document.getElementById('number');
-    if(book.numFound){
+    
+    
+    
+       if(book.numFound){
 
         numberOfResults.innerHTML=
-    `<h5>Number Of books Found: ${book.numFound} ` ;
-
+        `<h5>Number Of books Found: ${book.numFound} ` ;
     
-
-    }
+       }
+        
     else{
         numberOfResults.innerHTML=
-    `<h5> Your Search item is not found in our library . Here, the previous sucessful reslts in shown` ;
-    
+    `<h5> Your Search item is not found in our library ` ;
     }
     
     
@@ -55,6 +66,7 @@ const displayBooks=(book)=>{
 
       let authors;
      let counter=0;
+     
       if(data.author_name)
       {
         authors=data.author_name[0]; 
@@ -122,16 +134,14 @@ const displayBooks=(book)=>{
     
       div.innerHTML=`
           <div class="card h-100">
-            <img src="https://covers.openlibrary.org/b/id/${data.cover_i}-M.jpg" class="card-img-top h-100" alt="...">
+            <img src="https://covers.openlibrary.org/b/id/${data.cover_i}-M.jpg" class="card-img-top w-100 container mt-4" style="height:450px; ;" alt="...">
             <div class="card-body">
               <h1 class="card-title">${title}</h1>
               
-              <h4 class="card-title">By ${authors}</h4>
-              <h6 class="card-title">Publisher(s):  ${publishers}</h6>
-              <h6 class="card-title">First Published On ${firstPublishYear}</h6>
-
-
-              <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <h4 class="card-title" style="color:green">By ${authors}</h4> <br>
+              <h6 class="card-title" style="color:blue">Publisher(s):  ${publishers}</h6> 
+              <h6 class="card-title text-muted">First Published On ${firstPublishYear}</h6>
+              
             </div>
           </div>
       `;
