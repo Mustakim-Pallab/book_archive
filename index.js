@@ -2,15 +2,18 @@ let searchText;
 const numberOfResults=document.getElementById('number');
 const searchResult= document.getElementById('searchResults');
 
+// Event handler on button
+
 const getElement=document.getElementById('button-addon2').addEventListener("click",function(){
     searchText = document.getElementById('searchbox').value;
-    console.log(searchText);
+    
     search(searchText);
     document.getElementById('searchbox').value="";
     const div=document.createElement('div');
       div.classList.add('col');
 });
 
+// fetching from server
 const search=searchText =>{
     searchResult.innerHTML='';
     numberOfResults.innerHTML=`<h5> Please Wait........ </h5>
@@ -23,6 +26,7 @@ const search=searchText =>{
 
 }
 
+// error message
 const displayNone=() =>{
     numberOfResults.innerHTML=
     `<h5> Please Wait........ </h5>
@@ -30,12 +34,11 @@ const displayNone=() =>{
 }
 
 
-
+// display searchResult
 const displayBooks=(book)=>{
     
-    
-    
-       if(book.numFound){
+    // numberOfResults
+    if(book.numFound){
 
         numberOfResults.innerHTML=
         `<h5>Number Of books Found: ${book.numFound} ` ;
@@ -48,9 +51,8 @@ const displayBooks=(book)=>{
     }
     
     
+    // showing title,author_name,publisher
     book.docs.forEach(data=> {
-       console.log(data);
-       //const div=document.createElement('div');
       
       const div=document.createElement('div');
       div.classList.add('col');
@@ -148,16 +150,4 @@ const displayBooks=(book)=>{
       searchResult.appendChild(div);
         
     });
-    // for(var i=0; i<book.numFound; i++){
-    //     console.log(book.docs[i]);
-    // };
-    // for(i in book.docs)
-    // {
-    //     console.log(book.docs[i]);
-    // }
-    console.log(book.docs[0].title);
-    console.log(book.docs[0].author_name[0]);
 }
-
-
-console.log("djjdjdjd");
