@@ -16,9 +16,6 @@ const getElement=document.getElementById('button-addon2').addEventListener("clic
 // fetching from server
 const search=searchText =>{
     searchResult.innerHTML='';
-    numberOfResults.innerHTML=`<h5> Please Wait........ </h5>
-    <p>Your Desired Book(s) are on search</p>`;
-
     fetch(`https://openlibrary.org/search.json?q=${searchText}`)
   .then(response => response.json())
   .then(data => displayBooks(data) ).catch(displayNone());
